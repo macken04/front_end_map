@@ -8,6 +8,7 @@ import { Type, Palette, Layout, Download, Share2, ChevronRight, ChevronLeft, Che
 import Image from "next/image"
 import NavBar from "@/components/nav-bar"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 type Step = "style" | "text" | "layout"
 
@@ -339,7 +340,7 @@ export default function PosterDesigner() {
                         <div className="text-center">
                           <div className="font-bold uppercase text-slate-200">{size.name}</div>
                           <div className="text-xs text-slate-400 mb-1">{size.size}</div>
-                          <div className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400">
+                          <div className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-500">
                             {size.price}
                           </div>
                         </div>
@@ -385,10 +386,12 @@ export default function PosterDesigner() {
                 Back
               </Button>
               {isLastStep ? (
-                <Button className="flex-1 bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white font-bold">
-                  Preview Poster
-                  <ChevronRight className="h-4 w-4 ml-1" />
-                </Button>
+                <Link href="/map-preview">
+                  <Button className="flex-1 bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white font-bold">
+                    Preview Poster
+                    <ChevronRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </Link>
               ) : (
                 <Button
                   onClick={nextStep}

@@ -28,6 +28,9 @@ export default function NavBar() {
             <Link href="/activities" className="px-3 py-2 text-sm hover:text-cyan-400 transition-colors">
               My Activities
             </Link>
+            <Link href="/map-preview" className="px-3 py-2 text-sm hover:text-cyan-400 transition-colors">
+              Map Preview
+            </Link>
             <Link href="/famous-routes" className="px-3 py-2 text-sm hover:text-cyan-400 transition-colors">
               Famous Routes
             </Link>
