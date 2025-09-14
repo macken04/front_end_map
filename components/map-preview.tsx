@@ -14,14 +14,11 @@ import {
   Ruler,
   Palette,
   Type,
-  Layout,
   ShoppingCart,
   Heart,
   Star,
-  Eye,
   Truck,
   Shield,
-  Award,
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -29,7 +26,6 @@ import NavBar from "@/components/nav-bar"
 import { cn } from "@/lib/utils"
 
 export default function MapPreview() {
-  const [selectedView, setSelectedView] = useState<"poster" | "framed" | "wall">("poster")
   const [isLiked, setIsLiked] = useState(false)
 
   // Mock configuration data from design process
@@ -63,12 +59,6 @@ export default function MapPreview() {
       originalPrice: "£75.00",
     },
   }
-
-  const viewOptions = [
-    { id: "poster", label: "Poster Only", icon: Eye },
-    { id: "framed", label: "Framed", icon: Layout },
-    { id: "wall", label: "On Wall", icon: Award },
-  ]
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -123,179 +113,80 @@ export default function MapPreview() {
               {/* Map Preview - Takes up 2 columns */}
               <div className="lg:col-span-2">
                 <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-xl border border-pink-500/20">
-                  {/* View Options */}
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400">
-                      PREVIEW OPTIONS
+                      POSTER PREVIEW
                     </h2>
-                    <div className="flex bg-slate-700/50 rounded-lg p-1">
-                      {viewOptions.map((option) => {
-                        const Icon = option.icon
-                        return (
-                          <button
-                            key={option.id}
-                            onClick={() => setSelectedView(option.id as any)}
-                            className={cn(
-                              "flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all",
-                              selectedView === option.id
-                                ? "bg-gradient-to-r from-pink-500 to-cyan-500 text-white"
-                                : "text-slate-300 hover:text-white hover:bg-slate-600/50",
-                            )}
-                          >
-                            <Icon className="h-4 w-4 mr-2" />
-                            {option.label}
-                          </button>
-                        )
-                      })}
-                    </div>
                   </div>
 
                   {/* Map Preview Container */}
                   <div className="flex justify-center mb-6">
-                    {selectedView === "poster" && (
-                      <div className="bg-white p-6 shadow-2xl rounded-lg max-w-md transform hover:scale-105 transition-transform duration-300">
-                        <div className="relative">
-                          <Image
-                            src="/placeholder.svg?height=800&width=600"
-                            width={600}
-                            height={800}
-                            alt="Map preview"
-                            className="w-full h-[700px] object-cover opacity-90"
+                    <div className="bg-white p-6 shadow-2xl rounded-lg max-w-md transform hover:scale-105 transition-transform duration-300">
+                      <div className="relative">
+                        <Image
+                          src="/placeholder.svg?height=800&width=600"
+                          width={600}
+                          height={800}
+                          alt="Map preview"
+                          className="w-full h-[700px] object-cover opacity-90"
+                        />
+
+                        {/* Grid overlay */}
+                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMzksIDY4LCAyMDAsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-60"></div>
+
+                        {/* Route line */}
+                        <svg
+                          className="absolute inset-0 w-full h-full"
+                          viewBox="0 0 600 800"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <defs>
+                            <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#ec4899" />
+                              <stop offset="100%" stopColor="#22d3ee" />
+                            </linearGradient>
+                          </defs>
+                          <path
+                            d="M100,700 Q150,650 200,680 T300,600 T400,500 T500,300 T550,200"
+                            fill="none"
+                            stroke="url(#routeGradient)"
+                            strokeWidth={mapConfig.design.lineThickness}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
+                          {/* Glow effect */}
+                          <path
+                            d="M100,700 Q150,650 200,680 T300,600 T400,500 T500,300 T550,200"
+                            fill="none"
+                            stroke="#ec4899"
+                            strokeWidth={mapConfig.design.lineThickness * 2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            opacity="0.3"
+                            filter="blur(8px)"
+                          />
+                        </svg>
 
-                          {/* Grid overlay */}
-                          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMzksIDY4LCAyMDAsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-60"></div>
+                        {/* Title */}
+                        <div className="absolute top-6 left-0 right-0 text-center">
+                          <h2 className="text-3xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500">
+                            {mapConfig.design.title}
+                          </h2>
+                          {mapConfig.design.subtitle && (
+                            <p className="text-sm font-bold tracking-wide uppercase text-white mt-2">
+                              {mapConfig.design.subtitle}
+                            </p>
+                          )}
+                        </div>
 
-                          {/* Route line */}
-                          <svg
-                            className="absolute inset-0 w-full h-full"
-                            viewBox="0 0 600 800"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <defs>
-                              <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stopColor="#ec4899" />
-                                <stop offset="100%" stopColor="#22d3ee" />
-                              </linearGradient>
-                            </defs>
-                            <path
-                              d="M100,700 Q150,650 200,680 T300,600 T400,500 T500,300 T550,200"
-                              fill="none"
-                              stroke="url(#routeGradient)"
-                              strokeWidth={mapConfig.design.lineThickness}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            {/* Glow effect */}
-                            <path
-                              d="M100,700 Q150,650 200,680 T300,600 T400,500 T500,300 T550,200"
-                              fill="none"
-                              stroke="#ec4899"
-                              strokeWidth={mapConfig.design.lineThickness * 2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              opacity="0.3"
-                              filter="blur(8px)"
-                            />
-                          </svg>
-
-                          {/* Title */}
-                          <div className="absolute top-6 left-0 right-0 text-center">
-                            <h2 className="text-3xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500">
-                              {mapConfig.design.title}
-                            </h2>
-                            {mapConfig.design.subtitle && (
-                              <p className="text-sm font-bold tracking-wide uppercase text-white mt-2">
-                                {mapConfig.design.subtitle}
-                              </p>
-                            )}
-                          </div>
-
-                          {/* Stats at bottom */}
-                          <div className="absolute bottom-6 w-full text-center">
-                            <div className="inline-block bg-black/40 px-6 py-2 text-sm font-mono font-medium backdrop-blur-sm text-white border border-pink-500/30 rounded">
-                              {mapConfig.route.distance} — {mapConfig.route.elevation}
-                            </div>
+                        {/* Stats at bottom */}
+                        <div className="absolute bottom-6 w-full text-center">
+                          <div className="inline-block bg-black/40 px-6 py-2 text-sm font-mono font-medium backdrop-blur-sm text-white border border-pink-500/30 rounded">
+                            {mapConfig.route.distance} — {mapConfig.route.elevation}
                           </div>
                         </div>
                       </div>
-                    )}
-
-                    {selectedView === "framed" && (
-                      <div className="relative">
-                        {/* Frame */}
-                        <div className="bg-gradient-to-br from-slate-700 to-slate-800 p-8 shadow-2xl rounded-lg">
-                          <div className="bg-white p-6 shadow-inner">
-                            <div className="relative">
-                              <Image
-                                src="/placeholder.svg?height=600&width=450"
-                                width={450}
-                                height={600}
-                                alt="Framed map preview"
-                                className="w-full h-[500px] object-cover opacity-90"
-                              />
-                              {/* Simplified route overlay for framed view */}
-                              <svg
-                                className="absolute inset-0 w-full h-full"
-                                viewBox="0 0 450 600"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M75,525 Q112,487 150,510 T225,450 T300,375 T375,225 T412,150"
-                                  fill="none"
-                                  stroke="url(#routeGradient)"
-                                  strokeWidth="3"
-                                  strokeLinecap="round"
-                                />
-                              </svg>
-                              <div className="absolute top-4 left-0 right-0 text-center">
-                                <h3 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500">
-                                  {mapConfig.design.title}
-                                </h3>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="absolute -bottom-2 -right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded">
-                          Frame not included
-                        </div>
-                      </div>
-                    )}
-
-                    {selectedView === "wall" && (
-                      <div className="relative">
-                        {/* Wall mockup */}
-                        <div className="bg-gradient-to-br from-slate-100 to-slate-200 p-12 rounded-lg shadow-2xl">
-                          <div className="bg-white p-4 shadow-lg transform -rotate-1 hover:rotate-0 transition-transform duration-300">
-                            <div className="relative">
-                              <Image
-                                src="/placeholder.svg?height=400&width=300"
-                                width={300}
-                                height={400}
-                                alt="Wall mounted map preview"
-                                className="w-full h-[350px] object-cover opacity-90"
-                              />
-                              <svg
-                                className="absolute inset-0 w-full h-full"
-                                viewBox="0 0 300 400"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M50,350 Q75,325 100,340 T150,300 T200,250 T250,150 T275,100"
-                                  fill="none"
-                                  stroke="url(#routeGradient)"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="absolute -bottom-2 -right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded">
-                          Mockup only
-                        </div>
-                      </div>
-                    )}
+                    </div>
                   </div>
 
                   {/* Action Buttons */}
