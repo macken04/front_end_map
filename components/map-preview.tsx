@@ -109,35 +109,36 @@ export default function MapPreview() {
           </div>
 
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Map Preview - Takes up 2 columns */}
-              <div className="lg:col-span-2">
+            <div className="grid xl:grid-cols-4 gap-8">
+              {/* Map Preview - Takes up 3 columns on xl screens */}
+              <div className="xl:col-span-3">
                 <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-xl border border-pink-500/20">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400">
                       POSTER PREVIEW
                     </h2>
+                    <div className="text-sm text-slate-400">Actual size: {mapConfig.layout.dimensions}</div>
                   </div>
 
-                  {/* Map Preview Container */}
+                  {/* Map Preview Container - Much Larger */}
                   <div className="flex justify-center mb-6">
-                    <div className="bg-white p-6 shadow-2xl rounded-lg max-w-md transform hover:scale-105 transition-transform duration-300">
-                      <div className="relative">
+                    <div className="bg-white p-8 shadow-2xl rounded-lg max-w-2xl w-full transform hover:scale-[1.02] transition-transform duration-300">
+                      <div className="relative aspect-[3/4]">
                         <Image
-                          src="/placeholder.svg?height=800&width=600"
-                          width={600}
-                          height={800}
+                          src="/placeholder.svg?height=1000&width=750"
+                          width={750}
+                          height={1000}
                           alt="Map preview"
-                          className="w-full h-[700px] object-cover opacity-90"
+                          className="w-full h-full object-cover opacity-90 rounded-sm"
                         />
 
                         {/* Grid overlay */}
-                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMzksIDY4LCAyMDAsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-60"></div>
+                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMzksIDY4LCAyMDAsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-60 rounded-sm"></div>
 
                         {/* Route line */}
                         <svg
-                          className="absolute inset-0 w-full h-full"
-                          viewBox="0 0 600 800"
+                          className="absolute inset-0 w-full h-full rounded-sm"
+                          viewBox="0 0 750 1000"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <defs>
@@ -147,43 +148,48 @@ export default function MapPreview() {
                             </linearGradient>
                           </defs>
                           <path
-                            d="M100,700 Q150,650 200,680 T300,600 T400,500 T500,300 T550,200"
+                            d="M125,900 Q200,820 250,850 T375,750 T500,625 T625,375 T687,250"
                             fill="none"
                             stroke="url(#routeGradient)"
-                            strokeWidth={mapConfig.design.lineThickness}
+                            strokeWidth={mapConfig.design.lineThickness * 1.5}
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           {/* Glow effect */}
                           <path
-                            d="M100,700 Q150,650 200,680 T300,600 T400,500 T500,300 T550,200"
+                            d="M125,900 Q200,820 250,850 T375,750 T500,625 T625,375 T687,250"
                             fill="none"
                             stroke="#ec4899"
-                            strokeWidth={mapConfig.design.lineThickness * 2}
+                            strokeWidth={mapConfig.design.lineThickness * 3}
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             opacity="0.3"
-                            filter="blur(8px)"
+                            filter="blur(12px)"
                           />
                         </svg>
 
                         {/* Title */}
-                        <div className="absolute top-6 left-0 right-0 text-center">
-                          <h2 className="text-3xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500">
+                        <div className="absolute top-8 left-0 right-0 text-center">
+                          <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500">
                             {mapConfig.design.title}
                           </h2>
                           {mapConfig.design.subtitle && (
-                            <p className="text-sm font-bold tracking-wide uppercase text-white mt-2">
+                            <p className="text-lg font-bold tracking-wide uppercase text-white mt-3">
                               {mapConfig.design.subtitle}
                             </p>
                           )}
                         </div>
 
                         {/* Stats at bottom */}
-                        <div className="absolute bottom-6 w-full text-center">
-                          <div className="inline-block bg-black/40 px-6 py-2 text-sm font-mono font-medium backdrop-blur-sm text-white border border-pink-500/30 rounded">
+                        <div className="absolute bottom-8 w-full text-center">
+                          <div className="inline-block bg-black/40 px-8 py-3 text-lg font-mono font-medium backdrop-blur-sm text-white border border-pink-500/30 rounded">
                             {mapConfig.route.distance} — {mapConfig.route.elevation}
                           </div>
+                        </div>
+
+                        {/* Corner size indicator */}
+                        <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
+                          {mapConfig.layout.size}
                         </div>
                       </div>
                     </div>
@@ -221,8 +227,8 @@ export default function MapPreview() {
                 </div>
               </div>
 
-              {/* Configuration Details Sidebar */}
-              <div className="space-y-6">
+              {/* Configuration Details Sidebar - Now 1 column */}
+              <div className="xl:col-span-1 space-y-6">
                 {/* Pricing */}
                 <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-pink-500/20">
                   <div className="text-center mb-4">
@@ -255,7 +261,7 @@ export default function MapPreview() {
                         <div className="text-slate-400 text-sm">{mapConfig.route.location}</div>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3">
                       <div className="flex items-center">
                         <Ruler className="h-4 w-4 text-purple-400 mr-2" />
                         <div>
